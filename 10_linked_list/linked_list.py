@@ -89,7 +89,31 @@ class LinkedList:
             current_node.next.data = temp
 
             current_node = current_node.next.next
-  
+
+    def rotateRight(self, k: int): 
+        if not self.head or not self.head.next  or k == 0:
+            return self.head
+
+        tail_head = self.head
+
+        count = 1
+        while tail_head.next:
+            tail_head = tail_head.next
+            count += 1
+
+        tail_head.next = self.head
+        new_break_point = count - k % count
+
+        for _ in range(new_break_point):
+            tail_head = tail_head.next
+        
+        newHead = tail_head.next
+        tail_head.next = None
+
+        self.head = newHead
+
+
+
     # Print all the Linked List:
     def printAll(self):
         current_node = self.head
@@ -113,14 +137,16 @@ llist = LinkedList()
 # llist.insertAtIndex(7,1)
 
 # llist.updateNode(8,3)
-# llist.insertAtBegin(1)
-# llist.insertAtLast(2)
-# llist.insertAtLast(3)
+llist.insertAtBegin(0)
+llist.insertAtLast(1)
+llist.insertAtLast(2)
 # llist.insertAtLast(4)
+# llist.insertAtLast(5)
 
 # llist.removeNthNode(1)
 
-llist.swapPair()
+# llist.swapPair()
+llist.rotateRight(4)
 
 # print List
 llist.printAll()
