@@ -65,13 +65,12 @@ class LinkedList:
         
         current_node.data = data
     
-    def reverse_place_reversal(self): 
-        if not self.head or not self.head.next:
+    def reverse_place_reversal(self, head): 
+        if not head or not head.next:
             return
 
         current_head = self.head
         prev = None
-        # lnext = self.head
 
         while current_head:
             nextTemp = current_head.next
@@ -79,13 +78,62 @@ class LinkedList:
             prev = current_head
             current_head = nextTemp
         
-        self.head = prev
+        newhead = prev
+        return newhead
+    
+    def recursive(self, head):
+        if not head or not head.next:
+            return head
         
+        resHead = self.recursive(head.next)
+        head.next.next = head
+        head.next = None
+        return resHead        
+
+    def reverseKGroup(self, head, k): 
+        if not head or k == 1:
+            return head
+        
+        dummy = LinkedList()
+        dummy.insertAtBegin(-1)
+        dummy.next = head
+        prev_group_end = dummy
+        
+        while True:
+            # Check if there are at least k nodes left
+            last = prev_group_end
+            for _ in range(k):
+                last = last.next
+                if not last:
+                    self.printAll(dummy.next)
+                    return dummy.next
+            
+            # Reverse k nodes
+            curr = prev_group_end.next
+            new_group_start = last.next
+            prev = new_group_start
+            original_first = curr
+            for _ in range(k):
+                next_node = curr.next
+                curr.next = prev
+                prev = curr
+                curr = next_node
+            
+
+            prev_group_end.next = prev
+            prev_group_end = original_first
+
+
+            
+
+
+
+            
 
 
     # Print all the Linked List:
-    def printAll(self):
-        current_node = self.head
+    def printAll(self,head):
+        current_node = head
         while current_node is not None:
             print(current_node.data)
             current_node = current_node.next
@@ -112,10 +160,12 @@ llist.insertAtLast(3)
 llist.insertAtLast(4)
 llist.insertAtLast(5)
 
+# llist.recursive(llist.head)
 # llist.removeNthNode(1)
-llist.reverse_place_reversal()
+# llist.reverse_place_reversal()
+llist.reverseKGroup(llist.head, 2)
 # llist.swapPair()
 # llist.rotateRight(4)
 
 # print List
-llist.printAll()
+# llist.printAll()
