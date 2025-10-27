@@ -29,3 +29,16 @@ def isSameTree(p: TreeNode, q: TreeNode) -> bool:
         return False
     
     return isSameTree(p.left, q.left) and isSameTree(p.right, q.right)
+
+
+def isSubtree(root: TreeNode, subRoot: TreeNode) -> bool:
+    
+    if not subRoot:
+        return True
+    
+    if not root:
+        return False
+    
+    if isSameTree(root, subRoot):
+        return True
+    return isSubtree(root.left, subRoot) or isSubtree(root.right, subRoot)        
