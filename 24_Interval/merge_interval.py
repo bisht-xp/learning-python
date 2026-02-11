@@ -2,7 +2,6 @@ def merge(intervals: list[list[int]]) -> list[list[int]]:
     intervals.sort(key=lambda x:x[0])
     n = len(intervals)
     i=0
-    print("sorted Interval", intervals)
     result = []
     while i < n:
         newInterval = intervals[i]
