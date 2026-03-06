@@ -9,7 +9,7 @@ def evalRPN(tokens: list[str]) -> int:
                 case "*":
                     return val1 * val2
                 case "/":
-                    return val1 // val2
+                    return val1 / val2
         
         for token in tokens:
             if token == "+" or token == "-" or token == "*" or token == "/":
